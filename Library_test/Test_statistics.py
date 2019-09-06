@@ -12,10 +12,10 @@ def test_fr_dec():
   getcontext().prec = 6 #using decimal *
   print (dec(1)/dec(7))
 
+def create_rand_mean():
   a=[fr(12, 35),fr(1.54),fr(2,17),fr()]
   print (st.mean(a))
-
-def create_rand_mean():
+  
   data_points = [ ran.randint(1, 100) for x in range(1,1001) ]
   print (st.mean(data_points))
  
