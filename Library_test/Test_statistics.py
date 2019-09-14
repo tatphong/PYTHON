@@ -5,7 +5,6 @@ from decimal import *
 import random as ran
 def test_fr_dec():
   print (fr(1.13))
-
   getcontext().prec = 6 #using decimal *
   print (dec(1)/dec(7))
 
@@ -25,4 +24,5 @@ def mean_mode():
   print(st.mode(["cat", "dog", "dog", "cat", "monkey", "monkey", "dog"]))
   #mode đếm tần suất xuất hiện của các phần tử
 
+#main
 mean_mode()
