@@ -14,8 +14,8 @@ def plot_sin_cos():
     X = np.linspace(-np.pi, np.pi, 100, endpoint=True)
     #x=np.arange(0.,8.0,0.1)
     C,S = np.cos(X), np.sin(X)
-    plt.plot(X, C)
-    plt.plot(X,S)
+    plt.plot(C)
+    plt.plot(S)
     plt.show()
 
 def plot_tan():
@@ -54,4 +54,4 @@ def plot_gauss():
     plt.plot(x,1/(o*np.sqrt(2*np.pi))*np.exp(-(x-u)**2/(2*o**2)))
     plt.show()
 
-plot_gauss()
+plot_sin_cos()
