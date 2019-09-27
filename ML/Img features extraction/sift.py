@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # read image 
-img = cv2.imread('rem.jpg')
+img = cv2.imread('./images/demo0.jpg')
 
 
 # color gray of image
