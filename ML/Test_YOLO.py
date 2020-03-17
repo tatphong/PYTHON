@@ -38,7 +38,7 @@ lr = 1e-3
 #**********************************************************************************************************
 
 def load():
-    labels = json.load(open(r'E:\Code\PYTHON\ML\YOLO\train\labels.json'))
+    labels = json.load(open(r'D:\Code\PYTHON\ML\YOLO\train\labels.json'))
     # số lương ảnh
     N = len(labels)
     # matrix chứa ảnh
@@ -46,7 +46,7 @@ def load():
     # matrix chứa nhãn của ảnh tương ứng
     y = np.zeros((N,cell_size, cell_size, 5+nclass))
     for idx, label in enumerate(labels):
-        img = cv2.imread(r"E:\Code\PYTHON\ML\YOLO\train\{}.png".format(idx))
+        img = cv2.imread(r"D:\Code\PYTHON\ML\YOLO\train\{}.png".format(idx))
         # normalize về khoảng [0-1]
         X[idx] = img
         for box in label['boxes']:
