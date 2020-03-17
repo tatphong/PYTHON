@@ -1,6 +1,6 @@
 #https://colab.research.google.com/drive/1Wo3p6VFYqmxY-w52TLbJbsBc9S7p_8LK?fbclid=IwAR0tuwX7XpGyCVpoMGKqg1LqyEVGl4tYx02AFYlE0_fLW6Qf73KlFy08-QE#scrollTo=uUDueT3m9mVn
 
-import tensorflow as tf
+import tensorflow as tf #tf version==1.15.2
 ## slim là package đi kèm với tensorflow, giúp định nghĩa nhanh các loại mô hình deep learning
 import tensorflow.contrib.slim as slim
 import tensorflow.contrib.slim.nets
@@ -63,7 +63,44 @@ def load():
             y[idx, y_idx, x_idx] = 1, x_center, y_center, w, h, *cl
     
     return X, y
+
 #********************************************************************************************************
+
 X, y = load()
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2018) #tách X,y thành 2 mảng con là train và test
-print (len(X_train),len(X_test))
+#tách X,y thành 2 mảng con là train và test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2018) 
+# print (len(X_train),len(X_test))
+
+#********************************************************************************************************
+
+def vgg16(inputs, is_training):
+    """định nghĩa CNN
+    Args:
+      inputs: 5-D tensor [batch_size, width, height, 3]
+    Return:
+      iou: 4-D tensor [batch_size, 7, 7, 5*nbox + nclass]
+    """
+    # khái báo scope để có thê group những biến liên quan cho việc visualize trên tensorboard.
+    with tf.variable_scope("vgg_16"):
+        with slim.arg_scope(vgg.vgg_arg_scope()):
+            # hàm repeat có tác dụng lặp lại tầng conv2d n lần mà không phải định nghĩa phức tạp. thank for slim package
+            net = slim.repeat(inputs, 2, slim.conv2d, 16, [3, 3], scope='conv1')
+            net = slim.max_pool2d(net, [2, 2], scope='pool1')
+            net = slim.repeat(net, 2, slim.conv2d, 32, [3, 3], scope='conv2')
+            net = slim.max_pool2d(net, [2, 2], scope='pool2')
+            net = slim.repeat(net, 2, slim.conv2d, 64, [3, 3], scope='conv3')
+            net = slim.max_pool2d(net, [2, 2], scope='pool3')
+            net = slim.repeat(net, 2, slim.conv2d, 128, [3, 3], scope='conv4')
+            net = slim.max_pool2d(net, [2, 2], scope='pool4')
+            net = slim.repeat(net, 2, slim.conv2d, 256, [3, 3], scope='conv5')
+            net = slim.max_pool2d(net, [2, 2], scope='pool5')
+            
+            # thay vì sử dụng 2 tầng fully connected tại đây, 
+            # chúng ta sử dụng conv với kernel_size = (1,1) có tác dụng giống hệt tầng fully conntected
+            net = slim.conv2d(net, 512, [1, 1], scope='fc6')   
+
+            net = slim.conv2d(net, 13, [1, 1], activation_fn=None, scope='fc7')
+    return net
+
+#*****************************************************************************************************************
+
