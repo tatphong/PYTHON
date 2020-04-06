@@ -1,11 +1,17 @@
 {% extends "pages/base.html" %}
-{% load static %} <!--load lại static để gọi logo phía dưới, 0 load lại sẽ lỗi-->
 <!------------------------------head------------------------------------>
-{% block title %}Home{% endblock title %}
+{% block title %}Product{% endblock title %}
 
 
 <!------------------------------body----------------------------------->
 <!--***********************************content************************************-->
 {% block content %}
-<h1>Xin chao</h1>
+<h3>All Products</h3>
+<ul>
+    <li>
+    {% for prod in products %}
+        {{prod.name}}   |   {{prod.price}}    |    <img src="{{prod.image.url}}" width="500px" height="300px"/><BR/>
+    {% endfor %}
+    </li>
+</ul>
 {% endblock content %}
