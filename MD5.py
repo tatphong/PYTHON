@@ -3,12 +3,6 @@ import struct
 from bitarray import bitarray
 import hashlib
 
-# Khởi tạo biến:
-h0 = 0x67452301
-h1 = 0xEFCDAB89
-h2 = 0x98BADCFE
-h3 = 0x10325476
-
 # Tiền xử lý:
 # s="The quick brown fox jumps over the lazy dog"
 s = input("Chuỗi cần mã hóa:")
@@ -32,6 +26,12 @@ bit_array_len = len(result)
 chunk_num = bit_array_len//512
 
 # khai báo các hàm cần thiết
+    # Khởi tạo biến:
+h0 = 0x67452301
+h1 = 0xEFCDAB89
+h2 = 0x98BADCFE
+h3 = 0x10325476
+
 modular_add = lambda a, b: (a + b) % pow(2, 32)
 rotate_left = lambda x, n: (x << n) | (x >> (32 - n))
 def f(index,b,c,d): # all params is int
@@ -44,7 +44,7 @@ def f(index,b,c,d): # all params is int
     if 48<=index<=63:
         return c ^ (b | ~(d))
 
-# xác định số dịch chuyển mỗi vòng
+# xác định số bit dịch chuyển mỗi vòng
 r= [7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
     5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
     4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
@@ -106,5 +106,5 @@ B = struct.unpack("<I", struct.pack(">I", h1))[0]
 C = struct.unpack("<I", struct.pack(">I", h2))[0]
 D = struct.unpack("<I", struct.pack(">I", h3))[0]
 
-print("actual:", f"{format(A, '08x')}{format(B, '08x')}{format(C, '08x')}{format(D, '08x')}")
-print("expected: ",hashlib.md5(s.encode("utf-8")).hexdigest())
+print("actual:  ", f"{format(A, '08x')}{format(B, '08x')}{format(C, '08x')}{format(D, '08x')}")
+print("expected:", hashlib.md5(s.encode("utf-8")).hexdigest())
