@@ -1,5 +1,5 @@
 # YOLO
-- Trang web thương mại điện tử c2c về sách, sử dụng django 3.0.4 + mysql.
+- Objects detection
 ## Dataset
 - 25000 basic geometry images
 ## Build CNN Model
